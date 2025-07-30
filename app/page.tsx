@@ -265,14 +265,110 @@ const Page = () => {
             Get Started
           </Button>
           
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="px-8 transition-all hover:scale-105"
-          >
-            <Activity className="h-4 w-4 mr-2" />
-            View Analytics
-          </Button>
+            {/* Analytics Section */}
+            <Card className="w-full max-w-4xl">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+              <Activity className="h-5 w-5" />
+              <span>Analytics Dashboard</span>
+              </CardTitle>
+              <CardDescription>
+              Real-time performance metrics and request analytics
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Request Analytics */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm flex items-center">
+                <Database className="h-4 w-4 mr-2" />
+                Request Analytics
+                </h4>
+                <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Total Requests</span>
+                  <span className="font-medium">{requestCount}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Success Rate</span>
+                  <span className="font-medium text-green-600">{successRate}%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Failed Requests</span>
+                  <span className="font-medium text-red-600">{errorCount}</span>
+                </div>
+                </div>
+              </div>
+
+              {/* Performance Metrics */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm flex items-center">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Performance
+                </h4>
+                <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Response Time</span>
+                  <span className="font-medium">{responseTime}ms</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Auto Refresh</span>
+                  <Badge variant={autoRefresh ? "default" : "secondary"}>
+                  {autoRefresh ? "Enabled" : "Disabled"}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Network Status</span>
+                  <Badge variant={isOnline ? "default" : "destructive"}>
+                  {isOnline ? "Online" : "Offline"}
+                  </Badge>
+                </div>
+                </div>
+              </div>
+
+              {/* System Status */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm flex items-center">
+                <Clock className="h-4 w-4 mr-2" />
+                System Status
+                </h4>
+                <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Last Updated</span>
+                  <span className="font-medium text-xs">
+                  {dataUpdatedAt ? formatTime(dataUpdatedAt) : "Never"}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Rate Limited</span>
+                  <Badge variant={isRateLimited ? "destructive" : "default"}>
+                  {isRateLimited ? "Yes" : "No"}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <Badge variant="outline">
+                  {theme === 'dark' ? 'Dark' : 'Light'}
+                  </Badge>
+                </div>
+                </div>
+              </div>
+              </div>
+
+              {/* Progress Indicators */}
+              {isRateLimited && (
+              <div className="mt-6 space-y-2">
+                <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Rate Limit Cooldown</span>
+                <span className="text-sm text-muted-foreground">
+                  {Math.ceil(timeLeft / 1000)}s remaining
+                </span>
+                </div>
+                <Progress value={progressValue} className="h-2" />
+              </div>
+              )}
+            </CardContent>
+            </Card>
         </div>
 
         {/* Enhanced TRPC Data Card */}
