@@ -52,8 +52,12 @@ const Page = () => {
                 size="sm"
                 onClick={() => refetch()}
                 disabled={isLoading}
+                className="transition-all hover:scale-105 cursor-pointer"
               >
-                <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-4 w-4 transition-transform ${isLoading ? 'animate-spin' : ''}`} />
+                <span className="ml-2 text-xs">
+                  {isLoading ? 'Loading...' : 'Refresh'}
+                </span>
               </Button>
             </div>
           </CardHeader>
@@ -65,7 +69,7 @@ const Page = () => {
                 <Skeleton className="h-4 w-1/2" />
               </div>
             )}
-            
+
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>
@@ -73,7 +77,7 @@ const Page = () => {
                 </AlertDescription>
               </Alert>
             )}
-            
+
             {data && !isLoading && (
               <pre className="bg-muted p-4 rounded-lg text-sm overflow-auto">
                 {JSON.stringify(data, null, 2)}
