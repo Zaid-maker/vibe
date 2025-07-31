@@ -9,6 +9,7 @@ import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Loader2, Send, CheckCircle, XCircle } from "lucide-react";
+import { toast } from "sonner";
 
 const Page = () => {
   const trpc = useTRPC();
@@ -18,9 +19,11 @@ const Page = () => {
   const invoke = useMutation({
     ...trpc.invoke.mutationOptions({}),
     onSuccess: () => {
+      toast.success("Background job invoked successfully!");
       setMessage("Background job invoked successfully!");
     },
     onError: (error) => {
+      toast.error(`Error: ${error.message}`);
       setMessage(`Error: ${error.message}`);
     },
   });
