@@ -1,5 +1,5 @@
 import { caller } from '@/trpc/server'
-import React from 'react'
+import React, { JSX } from 'react'
 
 interface ServerData {
     greeting?: string
@@ -120,7 +120,46 @@ const StatusIndicator: React.FC<{ status: 'online' | 'warning' | 'offline' }> = 
     )
 }
 
-const Page = async () => {
+/**
+ * Legacy Server Dashboard Page Component
+ * 
+ * A comprehensive React server component that demonstrates tRPC server-side rendering capabilities.
+ * This component fetches data from a tRPC server endpoint and displays an enhanced dashboard
+ * with real-time server metrics, system health monitoring, and detailed error handling.
+ * 
+ * **Note: This is a demonstration of tRPC server integration and dashboard UI patterns.**
+ * 
+ * @returns {Promise<JSX.Element>} A promise that resolves to either:
+ *   - A successful dashboard view with server metrics, system health indicators, and response data
+ *   - A comprehensive error page with detailed diagnostics and troubleshooting information
+ * 
+ * @example
+ * ```tsx
+ * // This component is typically used as a page component in Next.js
+ * export default Page;
+ * ```
+ * 
+ * Features:
+ * - Real-time server metrics display (CPU, memory, response time)
+ * - Status indicators with color-coded health warnings
+ * - Responsive grid layout for different screen sizes
+ * - Enhanced error handling with stack traces and troubleshooting guides
+ * - Progress bars for system resource visualization
+ * - Server information panel with environment details
+ * 
+ * Error Handling:
+ * - Captures and displays detailed error information
+ * - Provides troubleshooting steps and quick action buttons
+ * - Shows stack traces in development for debugging
+ * 
+ * Dependencies:
+ * - tRPC caller for server communication
+ * - Custom components: StatusIndicator, MetricCard, ProgressBar
+ * - Tailwind CSS for styling
+ * 
+ * @throws {Error} Renders error UI instead of throwing, displaying comprehensive error details
+ */
+const Page = async (): Promise<JSX.Element> => {
     try {
         const startTime = Date.now()
         const data: ServerData = await caller.hello({ text: "Zaid Server" })
